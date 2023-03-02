@@ -11,7 +11,9 @@
         "root": ["./src"],
         "alias": {
           "@config": "./src/config",
-          "@routes": "./src/routes"
+          "@routes": "./src/routes",
+          "@clients": "./src/clients",
+          "@utils": "./src/utils"
         }
       }]
     ]

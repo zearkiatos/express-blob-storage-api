@@ -1,0 +1,31 @@
+version: "3.9"
+
+services:
+  api:
+    env_file: 
+      - .env.dev
+    build:
+      context: .
+      dockerfile: dev.Dockerfile
+    container_name: express-blob-storage-api
+    volumes: 
+      - ".:/usr/src/app"
+    ports:
+      - "8001:8000"
+    depends_on:
+      - storage
+    links:
+      - storage
+  storage:
+    container_name: azure-storage
+    command: azurite-blob --blobHost 0.0.0.0 --blobPort 10000
+    hostname: azure-storage
+    env_file:
+      - .env.storage
+    image: mcr.microsoft.com/azure-storage/azurite
+    ports:
+      - "10000:10000"
+      - "10001:10001"
+      - "10002:10002"
+    volumes:
+      - "./storage:/data"
