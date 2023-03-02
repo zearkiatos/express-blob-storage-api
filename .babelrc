@@ -1,0 +1,18 @@
+{
+    "presets": [["@babel/preset-env", {
+        "targets": {
+          "node": "current"
+        }
+    }]],
+    "plugins": [
+      "@babel/transform-runtime",
+      "@babel/plugin-proposal-class-properties",
+      ["module-resolver", {
+        "root": ["./src"],
+        "alias": {
+          "@config": "./src/config",
+          "@routes": "./src/routes"
+        }
+      }]
+    ]
+}
