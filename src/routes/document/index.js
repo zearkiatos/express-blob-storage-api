@@ -14,18 +14,18 @@ const document = (app) => {
         
         const csv = jsonTocsv(data, ";");
         const blobName = `document-${Date.now()}`;
-        const stream = fs.createWriteStream(`./tmp/${blobName}.csv`);
+        // const stream = fs.createWriteStream(`./tmp/${blobName}.csv`);
 
-        stream.write(csv);
-        const readableStream = fs.createReadStream(`./tmp/${blobName}.csv`);
+        // stream.write(csv);
+        // const readableStream = fs.createReadStream(`./tmp/${blobName}.csv`);
 
-        const bufferContent = await streamToBuffer(readableStream);
+        // const bufferContent = await streamToBuffer(readableStream);
     
-        await azureBlobStorageClient.uploadContent(blobName, bufferContent);
+        await azureBlobStorageClient.uploadContent(blobName, csv, 'text/csv');
 
-        fs.rm(`./tmp/${blobName}.csv`, function() {
-            stream.close();
-        });
+        // fs.rm(`./tmp/${blobName}.csv`, function() {
+        //     stream.close();
+        // });
         
         response.status(httpStatusCodes.OK);
         response.send({

@@ -19,10 +19,15 @@ const initializeBlobStorageClient = async () => {
     }
 }
 
-async function uploadContent(blobName, content) {
+async function uploadContent(blobName, content, blobContentType) {
     try {
         const blockBlobClient = containerClient.getBlockBlobClient(blobName)
-        return await blockBlobClient.upload(content, content.length)
+        const options = {
+            blobHTTPHeaders: {
+                blobContentType
+            }
+        }
+        return await blockBlobClient.upload(content, content.length, options)
     }
     catch(ex) {
         throw new BlobStorageClientErrorHandler(`Something went wrong while trying to upload into azure blob storage : ${ex.message}`)
